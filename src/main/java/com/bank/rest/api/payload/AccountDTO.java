@@ -1,9 +1,7 @@
 package com.bank.rest.api.payload;
 
 import java.time.LocalDate;
-import java.util.Currency;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 
 @Data

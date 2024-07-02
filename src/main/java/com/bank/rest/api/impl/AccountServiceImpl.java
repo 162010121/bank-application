@@ -112,8 +112,8 @@ public class AccountServiceImpl implements AccountService {
 
 		accountDTO.setMessage(
 				"Dear..! Customer An Amount Of INR" + " " + amount + " " + "has been DEBITED to your account" + " "
-						+ saveAccount.getAccountNumber() + " " + "on." + saveAccount.getCurrentDate()
-						+ "Total Available Balance" + " " + total + "-" + saveAccount.getBankName());
+						+ saveAccount.getAccountNumber() + " " + "on." + saveAccount.getCurrentDate()+" "
+						+ "Total Available Balance" +" "+ total + "-" + saveAccount.getBankName());
 
 		return accountDTO;
 
@@ -122,6 +122,13 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public List<Account> getAllAccountDetailsFromDataBase() {
 		return repository.findAll();
+	}
+
+	@Override
+	public void deleteAccountById(Long Id) {
+		
+		 repository.deleteById(Id);
+		
 	}
 
 }

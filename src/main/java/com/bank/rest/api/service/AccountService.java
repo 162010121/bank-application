@@ -16,6 +16,8 @@ public interface AccountService {
 	 AccountDTO moneyWithdraw(Long Id,Double amount);
 	 
 	 List<Account> getAllAccountDetailsFromDataBase();
+	 
+	 public void deleteAccountById(Long Id);
 	
 	
 	

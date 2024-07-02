@@ -1,7 +1,6 @@
 package com.bank.rest.api.entity;
 
 import java.time.LocalDate;
-import java.util.Currency;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
