@@ -74,7 +74,7 @@ public class AccountRestController {
 	{
 		service.deleteAccountById(Id);
 		
-		return "Account Deleted Successfully";
+		return "Dear Customer Your Account Was Deleted Successfully";
 		
 	}
 	
