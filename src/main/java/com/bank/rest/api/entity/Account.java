@@ -17,7 +17,6 @@ public class Account {
 
 	@Id
 	@Column(name = "CustomerId", nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long customerId;
 
 	@Column(name = "AccountHolderName")

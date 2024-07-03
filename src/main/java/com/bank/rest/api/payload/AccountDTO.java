@@ -26,7 +26,8 @@ public class AccountDTO {
 	
 	private String message;
 	
-
+	private String trasactionType;
+	
 	private String accountType;
 	
 	private String accountStatus;

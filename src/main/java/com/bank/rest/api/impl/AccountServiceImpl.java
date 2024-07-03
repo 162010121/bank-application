@@ -34,6 +34,9 @@ public class AccountServiceImpl implements AccountService {
 
 		LocalDate localDate = LocalDate.now();
 		account.setCurrentDate(localDate);
+		accountDTO.setCurrentDate(localDate);
+		accountDTO.setTrasactionType("Account Create");
+
 		accountDTO.getCurrentDate();
 		accountDTO.setBankName(account.getBankName());
 		accountDTO.setMessage("Account Created Successfully" + " " + "" + "In  " + account.getBankName());
@@ -56,6 +59,13 @@ public class AccountServiceImpl implements AccountService {
 		double total = account.getAmount() + amount;
 		account.setAmount(total);
 		Account saveAccount = repository.save(account);
+		
+		if(account.getAccountStatus().contains("De-Active"))
+		{
+			throw new RuntimeException("You Can't Deposite this Account...Becuse"
+					+ "this account is De-Activate");
+
+		}
 
 		accountDTO.setCustomerId(saveAccount.getCustomerId());
 		accountDTO.setAccountHolderName(saveAccount.getAccountHolderName());
@@ -66,14 +76,16 @@ public class AccountServiceImpl implements AccountService {
 
 		LocalDate localDate = LocalDate.now();
 		saveAccount.setCurrentDate(localDate);
+		accountDTO.setCurrentDate(localDate);
 
 		accountDTO.setIfscCode(saveAccount.getIfscCode());
 		accountDTO.setCurrentBalance(saveAccount.getAmount());
 		accountDTO.setBankName(saveAccount.getBankName());
+		accountDTO.setTrasactionType("Deposite");
 
 		accountDTO.setMessage(
 				"Dear..! Customer An Amount Of INR" + " " + amount + "/-"+"   "+ "has been CREDITED to your account" + " "
-						+ saveAccount.getAccountNumber() +  " " + "on." + saveAccount.getCurrentDate()
+						+ saveAccount.getAccountNumber() +  " " + "on."+" "+ saveAccount.getCurrentDate()
 						+ "Total Available Balance" + " " + total + "-" + saveAccount.getBankName());
 
 		return accountDTO;
@@ -94,6 +106,12 @@ public class AccountServiceImpl implements AccountService {
 			throw new RuntimeException("Insuffient Balance..!");
 
 		}
+		if(account.getAccountStatus().contains("De-Active"))
+		{
+			throw new RuntimeException("You Can't Withdraw this Account...Becuse"
+					+ "this account is De-Activate");
+
+		}
 
 		accountDTO.setCustomerId(saveAccount.getCustomerId());
 		accountDTO.setAccountHolderName(saveAccount.getAccountHolderName());
@@ -105,15 +123,21 @@ public class AccountServiceImpl implements AccountService {
 
 		LocalDate localDate = LocalDate.now();
 		saveAccount.setCurrentDate(localDate);
+		accountDTO.setCurrentDate(localDate);
+
 
 		accountDTO.setIfscCode(saveAccount.getIfscCode());
 		accountDTO.setCurrentBalance(saveAccount.getAmount());
 		accountDTO.setBankName(saveAccount.getBankName());
+		accountDTO.setTrasactionType("Withdraw");
 
 		accountDTO.setMessage(
-				"Dear..! Customer An Amount Of INR" + " " + amount + " " + "has been DEBITED to your account" + " "
-						+ saveAccount.getAccountNumber() + " " + "on." + saveAccount.getCurrentDate()+" "
-						+ "Total Available Balance" +" "+ total + "-" + saveAccount.getBankName());
+				"Dear..! Customer An Amount Of INR" + " " 
+		        + amount + " " + "DEBITED to your account" + " "
+				+ saveAccount.getAccountNumber() + " " + "on." +" "+ 
+		        saveAccount.getCurrentDate()+" "
+				+ "Total Available Balance" +" "+ total + "-" 
+		        + saveAccount.getBankName());
 
 		return accountDTO;
 
@@ -121,6 +145,9 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public List<Account> getAllAccountDetailsFromDataBase() {
+		
+		
+		
 		return repository.findAll();
 	}
 
