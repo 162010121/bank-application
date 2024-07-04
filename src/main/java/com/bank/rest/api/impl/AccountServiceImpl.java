@@ -100,7 +100,7 @@ public class AccountServiceImpl implements AccountService {
 
 		if (account.getAmount() < amount) {
 
-			throw new RuntimeException("Insuffient Balance Account..!");
+			throw new RuntimeException("Insuffient Balance...!");
 
 		}
 
@@ -132,8 +132,6 @@ public class AccountServiceImpl implements AccountService {
 		accountDTO.setBankName(saveAccount.getBankName());
 		accountDTO.setTrasactionType("Withdraw");
 
-		
-		
 		accountDTO.setMessage("Dear..! Customer An Amount Of INR" + " " + amount + " " + "DEBITED to your account" + " "
 				+ saveAccount.getAccountNumber() + " " + "on." + " " + saveAccount.getCurrentDate() + " "
 				+ "Total Available Balance" + " " + total + "-" + saveAccount.getBankName());
