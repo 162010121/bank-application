@@ -31,7 +31,6 @@ public class AccountServiceImpl implements AccountService {
 		accountDTO.setAccountStatus(account.getAccountStatus());
 		accountDTO.setAccountType(account.getAccountType());
 
-
 		LocalDate localDate = LocalDate.now();
 		account.setCurrentDate(localDate);
 		accountDTO.setCurrentDate(localDate);
@@ -59,11 +58,9 @@ public class AccountServiceImpl implements AccountService {
 		double total = account.getAmount() + amount;
 		account.setAmount(total);
 		Account saveAccount = repository.save(account);
-		
-		if(account.getAccountStatus().contains("De-Active"))
-		{
-			throw new RuntimeException("You Can't Deposite this Account...Becuse"
-					+ "this account is De-Activate");
+
+		if (account.getAccountStatus().contains("De-Active")) {
+			throw new RuntimeException("You Can't Deposite this Account...Becuse" + "this account is De-Activate");
 
 		}
 
@@ -84,8 +81,8 @@ public class AccountServiceImpl implements AccountService {
 		accountDTO.setTrasactionType("Deposite");
 
 		accountDTO.setMessage(
-				"Dear..! Customer An Amount Of INR" + " " + amount + "/-"+"   "+ "has been CREDITED to your account" + " "
-						+ saveAccount.getAccountNumber() +  " " + "on."+" "+ saveAccount.getCurrentDate()
+				"Dear..! Customer An Amount Of INR" + " " + amount + "/-" + "   " + "has been CREDITED to your account"
+						+ " " + saveAccount.getAccountNumber() + " " + "on." + " " + saveAccount.getCurrentDate()
 						+ "Total Available Balance" + " " + total + "-" + saveAccount.getBankName());
 
 		return accountDTO;
@@ -106,18 +103,29 @@ public class AccountServiceImpl implements AccountService {
 			throw new RuntimeException("Insuffient Balance..!");
 
 		}
-		if(account.getAccountStatus().contains("De-Active"))
-		{
-			throw new RuntimeException("You Can't Withdraw this Account...Becuse"
-					+ "this account is De-Activate");
+
+		if (account.getAccountStatus().contains("De-Active")) {
+			throw new RuntimeException("You Can't Withdraw from this Account...Becuse this account is De-Activate");
 
 		}
+		double withdrawAmount=20000.00;
+		
+		if(amount > withdrawAmount)
+		{
+			throw new RuntimeException("Limit Exceed...!"
+					+ "You Can't Withdraw/Transfer ...!");
+
+		}
+  
+		
+	
+	
 
 		accountDTO.setCustomerId(saveAccount.getCustomerId());
 		accountDTO.setAccountHolderName(saveAccount.getAccountHolderName());
 		accountDTO.setAccountNumber(saveAccount.getAccountNumber());
 		accountDTO.setCity(saveAccount.getCity());
-		
+
 		accountDTO.setAccountStatus(saveAccount.getAccountStatus());
 		accountDTO.setAccountType(saveAccount.getAccountType());
 
@@ -125,19 +133,14 @@ public class AccountServiceImpl implements AccountService {
 		saveAccount.setCurrentDate(localDate);
 		accountDTO.setCurrentDate(localDate);
 
-
 		accountDTO.setIfscCode(saveAccount.getIfscCode());
 		accountDTO.setCurrentBalance(saveAccount.getAmount());
 		accountDTO.setBankName(saveAccount.getBankName());
 		accountDTO.setTrasactionType("Withdraw");
 
-		accountDTO.setMessage(
-				"Dear..! Customer An Amount Of INR" + " " 
-		        + amount + " " + "DEBITED to your account" + " "
-				+ saveAccount.getAccountNumber() + " " + "on." +" "+ 
-		        saveAccount.getCurrentDate()+" "
-				+ "Total Available Balance" +" "+ total + "-" 
-		        + saveAccount.getBankName());
+		accountDTO.setMessage("Dear..! Customer An Amount Of INR" + " " + amount + " " + "DEBITED to your account" + " "
+				+ saveAccount.getAccountNumber() + " " + "on." + " " + saveAccount.getCurrentDate() + " "
+				+ "Total Available Balance" + " " + total + "-" + saveAccount.getBankName());
 
 		return accountDTO;
 
@@ -145,17 +148,15 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public List<Account> getAllAccountDetailsFromDataBase() {
-		
-		
-		
+
 		return repository.findAll();
 	}
 
 	@Override
 	public void deleteAccountById(Long Id) {
-		
-		 repository.deleteById(Id);
-		
+
+		repository.deleteById(Id);
+
 	}
 
 }

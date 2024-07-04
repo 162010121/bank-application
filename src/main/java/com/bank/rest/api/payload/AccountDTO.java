@@ -9,7 +9,6 @@ public class AccountDTO {
 
 	private Long customerId;
 
-	
 	private String accountHolderName;
 
 	private Double currentBalance;
@@ -21,15 +20,15 @@ public class AccountDTO {
 	private LocalDate currentDate;
 
 	private Long accountNumber;
-	
+
 	private String bankName;
-	
+
 	private String message;
-	
+
 	private String trasactionType;
-	
+
 	private String accountType;
-	
+
 	private String accountStatus;
 
 }
