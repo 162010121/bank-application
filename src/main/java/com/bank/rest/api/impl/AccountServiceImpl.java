@@ -100,7 +100,7 @@ public class AccountServiceImpl implements AccountService {
 
 		if (account.getAmount() < amount) {
 
-			throw new RuntimeException("Insuffient Balance..!");
+			throw new RuntimeException("Insuffient Balance...");
 
 		}
 
