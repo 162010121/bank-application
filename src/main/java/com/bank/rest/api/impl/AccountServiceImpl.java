@@ -100,7 +100,7 @@ public class AccountServiceImpl implements AccountService {
 
 		if (account.getAmount() < amount) {
 
-			throw new RuntimeException("Insuffient Balance..!");
+			throw new RuntimeException("Insuffient Balance Account..!");
 
 		}
 
@@ -108,18 +108,12 @@ public class AccountServiceImpl implements AccountService {
 			throw new RuntimeException("You Can't Withdraw from this Account...Becuse this account is De-Activate");
 
 		}
-		double withdrawAmount=20000.00;
-		
-		if(amount > withdrawAmount)
-		{
-			throw new RuntimeException("Limit Exceed...!"
-					+ "You Can't Withdraw/Transfer ...!");
+		double withdrawAmount = 50000.00;
+
+		if (amount > withdrawAmount) {
+			throw new RuntimeException("Limit Exceed...!" + "You Can't Withdraw/Transfer ...!");
 
 		}
-  
-		
-	
-	
 
 		accountDTO.setCustomerId(saveAccount.getCustomerId());
 		accountDTO.setAccountHolderName(saveAccount.getAccountHolderName());
@@ -138,6 +132,8 @@ public class AccountServiceImpl implements AccountService {
 		accountDTO.setBankName(saveAccount.getBankName());
 		accountDTO.setTrasactionType("Withdraw");
 
+		
+		
 		accountDTO.setMessage("Dear..! Customer An Amount Of INR" + " " + amount + " " + "DEBITED to your account" + " "
 				+ saveAccount.getAccountNumber() + " " + "on." + " " + saveAccount.getCurrentDate() + " "
 				+ "Total Available Balance" + " " + total + "-" + saveAccount.getBankName());
