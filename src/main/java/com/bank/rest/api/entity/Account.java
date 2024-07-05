@@ -1,6 +1,7 @@
 package com.bank.rest.api.entity;
 
-import java.time.LocalDate;
+
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +34,7 @@ public class Account {
 	private String city;
 
 	@Column(name = "Date")
-	private LocalDate currentDate;
+	private Date currentDate;
 
 	@Column(name = "AccountNumber")
 	private Long accountNumber;

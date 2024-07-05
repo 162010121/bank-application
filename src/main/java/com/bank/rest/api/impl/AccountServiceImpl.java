@@ -1,6 +1,6 @@
 package com.bank.rest.api.impl;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +31,8 @@ public class AccountServiceImpl implements AccountService {
 		accountDTO.setAccountStatus(account.getAccountStatus());
 		accountDTO.setAccountType(account.getAccountType());
 
-		LocalDate localDate = LocalDate.now();
-		account.setCurrentDate(localDate);
-		accountDTO.setCurrentDate(localDate);
+		
+		accountDTO.setCurrentDate(new Date());
 		accountDTO.setTrasactionType("Account Create");
 
 		accountDTO.getCurrentDate();
@@ -71,9 +70,8 @@ public class AccountServiceImpl implements AccountService {
 		accountDTO.setAccountStatus(saveAccount.getAccountStatus());
 		accountDTO.setAccountType(saveAccount.getAccountType());
 
-		LocalDate localDate = LocalDate.now();
-		saveAccount.setCurrentDate(localDate);
-		accountDTO.setCurrentDate(localDate);
+		accountDTO.setCurrentDate(new Date());
+
 
 		accountDTO.setIfscCode(saveAccount.getIfscCode());
 		accountDTO.setCurrentBalance(saveAccount.getAmount());
@@ -123,9 +121,8 @@ public class AccountServiceImpl implements AccountService {
 		accountDTO.setAccountStatus(saveAccount.getAccountStatus());
 		accountDTO.setAccountType(saveAccount.getAccountType());
 
-		LocalDate localDate = LocalDate.now();
-		saveAccount.setCurrentDate(localDate);
-		accountDTO.setCurrentDate(localDate);
+		accountDTO.setCurrentDate(new Date());
+
 
 		accountDTO.setIfscCode(saveAccount.getIfscCode());
 		accountDTO.setCurrentBalance(saveAccount.getAmount());

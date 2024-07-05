@@ -1,6 +1,6 @@
 package com.bank.rest.api.payload;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import lombok.Data;
 
@@ -17,7 +17,7 @@ public class AccountDTO {
 
 	private String city;
 
-	private LocalDate currentDate;
+	private Date currentDate;
 
 	private Long accountNumber;
 

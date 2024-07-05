@@ -2,6 +2,7 @@ package com.bank.rest.api.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,17 +52,24 @@ public class AccountRestController {
 
 	@PutMapping("/withdraw/{Id}")
 	public ResponseEntity<AccountDTO> moneyWithdrawFromAccount(@PathVariable("Id") Long Id,
-			@RequestBody Map<String, Double> req) {
+			@RequestBody double amount) {
 
-		Double amount = req.get("amount");
-		AccountDTO accountDTO = service.moneyWithdraw(Id, amount);		
+		//Double amount = req.get("amount");
+		AccountDTO accountDTO = service.moneyWithdraw(Id, amount);
 		return new ResponseEntity<>(accountDTO, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/getAllAccounts")
 	public ResponseEntity<List<Account>> getAllAccountDetails() {
+		
+		
 		List<Account> account = service.getAllAccountDetailsFromDataBase();
-		return new ResponseEntity<>(account, HttpStatus.FOUND);
+		List<Account> activeAccounts = account.
+				stream().filter(s -> s.getAccountStatus().
+				equalsIgnoreCase("Active")).
+				collect(Collectors.toList());
+
+		return new ResponseEntity<>(activeAccounts, HttpStatus.FOUND);
 
 	}
 
