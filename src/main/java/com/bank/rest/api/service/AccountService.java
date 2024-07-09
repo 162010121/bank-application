@@ -18,5 +18,6 @@ public interface AccountService {
 	List<Account> getAllAccountDetailsFromDataBase();
 
 	public void deleteAccountById(Long Id);
+	
 
 }

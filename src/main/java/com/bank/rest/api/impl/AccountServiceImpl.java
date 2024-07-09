@@ -2,6 +2,7 @@ package com.bank.rest.api.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class AccountServiceImpl implements AccountService {
 		accountDTO.setAccountStatus(account.getAccountStatus());
 		accountDTO.setAccountType(account.getAccountType());
 
-		
+		account.setCurrentDate(new Date());
 		accountDTO.setCurrentDate(new Date());
 		accountDTO.setTrasactionType("Account Create");
 
@@ -72,7 +73,6 @@ public class AccountServiceImpl implements AccountService {
 
 		accountDTO.setCurrentDate(new Date());
 
-
 		accountDTO.setIfscCode(saveAccount.getIfscCode());
 		accountDTO.setCurrentBalance(saveAccount.getAmount());
 		accountDTO.setBankName(saveAccount.getBankName());
@@ -81,7 +81,7 @@ public class AccountServiceImpl implements AccountService {
 		accountDTO.setMessage(
 				"Dear..! Customer An Amount Of INR" + " " + amount + "/-" + "   " + "has been CREDITED to your account"
 						+ " " + saveAccount.getAccountNumber() + " " + "on." + " " + saveAccount.getCurrentDate()
-						+ "Total Available Balance" + " " + total + "-" + saveAccount.getBankName());
+						+" "+ "Total Available Balance" + " " + total + "-" + saveAccount.getBankName());
 
 		return accountDTO;
 	}
@@ -96,20 +96,18 @@ public class AccountServiceImpl implements AccountService {
 		account.setAmount(total);
 		Account saveAccount = repository.save(account);
 
-		if (account.getAmount() < amount) {
-
-			throw new RuntimeException("Insuffient Balance...!");
-
-		}
-
 		if (account.getAccountStatus().contains("De-Active")) {
 			throw new RuntimeException("You Can't Withdraw from this Account...Becuse this account is De-Activate");
 
 		}
-		double withdrawAmount = 50000.00;
 
-		if (amount > withdrawAmount) {
+		if (amount > 50000.00) {
 			throw new RuntimeException("Limit Exceed...!" + "You Can't Withdraw/Transfer ...!");
+
+		}
+		if (account.getAmount() < amount) {
+
+			throw new RuntimeException("Insuffient Balance...!");
 
 		}
 
@@ -122,7 +120,6 @@ public class AccountServiceImpl implements AccountService {
 		accountDTO.setAccountType(saveAccount.getAccountType());
 
 		accountDTO.setCurrentDate(new Date());
-
 
 		accountDTO.setIfscCode(saveAccount.getIfscCode());
 		accountDTO.setCurrentBalance(saveAccount.getAmount());
@@ -140,7 +137,12 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public List<Account> getAllAccountDetailsFromDataBase() {
 
-		return repository.findAll();
+		List<Account> account = repository.findAll();
+
+		List<Account> activeAccounts = account.stream().filter(s -> s.getAccountStatus().equalsIgnoreCase("Active"))
+				.collect(Collectors.toList());
+
+		return activeAccounts;
 	}
 
 	@Override
