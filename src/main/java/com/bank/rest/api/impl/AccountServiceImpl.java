@@ -80,8 +80,8 @@ public class AccountServiceImpl implements AccountService {
 
 		accountDTO.setMessage(
 				"Dear..! Customer An Amount Of INR" + " " + amount + "/-" + "   " + "has been CREDITED to your account"
-						+ " " + saveAccount.getAccountNumber() + " " + "on." + " " + saveAccount.getCurrentDate()
-						+" "+ "Total Available Balance" + " " + total + "-" + saveAccount.getBankName());
+						+ " " + saveAccount.getAccountNumber() + " " + "on." + " " + saveAccount.getCurrentDate() + " "
+						+ "Total Available Balance" + " " + total + "-" + saveAccount.getBankName());
 
 		return accountDTO;
 	}
