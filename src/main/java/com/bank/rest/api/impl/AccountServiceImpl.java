@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bank.rest.api.entity.Account;
 import com.bank.rest.api.payload.AccountDTO;
+import com.bank.rest.api.payload.CustomersAccountsDetailsDTO;
 import com.bank.rest.api.repository.AccountRespository;
 import com.bank.rest.api.service.AccountService;
 
@@ -39,6 +40,7 @@ public class AccountServiceImpl implements AccountService {
 		accountDTO.getCurrentDate();
 		accountDTO.setBankName(account.getBankName());
 		accountDTO.setMessage("Account Created Successfully" + " " + "" + "In  " + account.getBankName());
+
 		repository.save(account);
 		return accountDTO;
 	}
@@ -143,6 +145,7 @@ public class AccountServiceImpl implements AccountService {
 				.collect(Collectors.toList());
 
 		return activeAccounts;
+
 	}
 
 	@Override
@@ -150,6 +153,27 @@ public class AccountServiceImpl implements AccountService {
 
 		repository.deleteById(Id);
 
+	}
+
+	@Override
+	public CustomersAccountsDetailsDTO getAllAccountDetailsFromData() {
+
+		CustomersAccountsDetailsDTO customerDetails = new CustomersAccountsDetailsDTO();
+
+		String status = "De-Active";
+
+		List<Account> account = repository.findAll();
+
+		List<Account> activeAccounts = account.stream().filter(s -> s.getAccountStatus().equalsIgnoreCase(status))
+				.collect(Collectors.toList());
+
+		customerDetails.setAccountsStatusCount(activeAccounts.size());
+
+		customerDetails.setCustomersAccountsList(activeAccounts);
+
+		customerDetails.setAccountStatus(status);
+
+		return customerDetails;
 	}
 
 }

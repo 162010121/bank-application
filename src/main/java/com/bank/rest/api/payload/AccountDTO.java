@@ -30,5 +30,6 @@ public class AccountDTO {
 	private String accountType;
 
 	private String accountStatus;
+	
 
 }

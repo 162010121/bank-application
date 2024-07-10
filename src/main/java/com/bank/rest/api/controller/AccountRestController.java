@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bank.rest.api.entity.Account;
 import com.bank.rest.api.impl.AccountServiceImpl;
 import com.bank.rest.api.payload.AccountDTO;
+import com.bank.rest.api.payload.CustomersAccountsDetailsDTO;
 
 @RestController
 @RequestMapping(value = "/account")
@@ -71,8 +72,16 @@ public class AccountRestController {
 	public String deleteAccount(@PathVariable("Id") Long Id) {
 		service.deleteAccountById(Id);
 
-		return "Dear Customer Your Account Was Deleted Successfully....?";
+		return "Dear Customer Your Account Has Been Deleted Successfully....?";
 
+	}
+	
+	@GetMapping("/getAllCustomersDetails")
+	public CustomersAccountsDetailsDTO getAllCustomersDetailsFromDB()
+	{
+		
+		return service.getAllAccountDetailsFromData();
+		
 	}
 
 
