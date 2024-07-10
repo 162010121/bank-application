@@ -8,5 +8,5 @@ import com.bank.rest.api.entity.Account;
 
 @Repository
 public interface AccountRespository extends JpaRepository<Account, Long> {
-
+	
 }

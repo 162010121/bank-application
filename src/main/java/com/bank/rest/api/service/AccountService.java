@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bank.rest.api.entity.Account;
 import com.bank.rest.api.payload.AccountDTO;
+import com.bank.rest.api.payload.CustomersAccountsDetailsDTO;
 
 public interface AccountService {
 
@@ -18,5 +19,9 @@ public interface AccountService {
 	List<Account> getAllAccountDetailsFromDataBase();
 
 	public void deleteAccountById(Long Id);
+	
+	public CustomersAccountsDetailsDTO getAllAccountDetailsFromData();
+
+	
 
 }

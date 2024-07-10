@@ -1,6 +1,5 @@
 package com.bank.rest.api.entity;
 
-
 import java.util.Date;
 
 import jakarta.persistence.Column;

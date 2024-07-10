@@ -2,7 +2,6 @@ package com.bank.rest.api.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bank.rest.api.entity.Account;
 import com.bank.rest.api.impl.AccountServiceImpl;
 import com.bank.rest.api.payload.AccountDTO;
+import com.bank.rest.api.payload.CustomersAccountsDetailsDTO;
 
 @RestController
 @RequestMapping(value = "/account")
@@ -52,24 +52,19 @@ public class AccountRestController {
 
 	@PutMapping("/withdraw/{Id}")
 	public ResponseEntity<AccountDTO> moneyWithdrawFromAccount(@PathVariable("Id") Long Id,
-			@RequestBody double amount) {
+			@RequestBody Map<String, Double> req) {
 
-		//Double amount = req.get("amount");
+		Double amount = req.get("amount");
 		AccountDTO accountDTO = service.moneyWithdraw(Id, amount);
 		return new ResponseEntity<>(accountDTO, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/getAllAccounts")
 	public ResponseEntity<List<Account>> getAllAccountDetails() {
-		
-		
-		List<Account> account = service.getAllAccountDetailsFromDataBase();
-		List<Account> activeAccounts = account.
-				stream().filter(s -> s.getAccountStatus().
-				equalsIgnoreCase("Active")).
-				collect(Collectors.toList());
 
-		return new ResponseEntity<>(activeAccounts, HttpStatus.FOUND);
+		List<Account> account = service.getAllAccountDetailsFromDataBase();
+
+		return new ResponseEntity<>(account, HttpStatus.FOUND);
 
 	}
 
@@ -77,8 +72,17 @@ public class AccountRestController {
 	public String deleteAccount(@PathVariable("Id") Long Id) {
 		service.deleteAccountById(Id);
 
-		return "Dear Customer Your Account Was Deleted Successfully....?";
+		return "Dear Customer Your Account Has Been Deleted Successfully....?";
 
 	}
+	
+	@GetMapping("/getAllCustomersDetails")
+	public CustomersAccountsDetailsDTO getAllCustomersDetailsFromDB()
+	{
+		
+		return service.getAllAccountDetailsFromData();
+		
+	}
+
 
 }
