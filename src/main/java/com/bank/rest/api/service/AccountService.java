@@ -19,9 +19,7 @@ public interface AccountService {
 	List<Account> getAllAccountDetailsFromDataBase();
 
 	public void deleteAccountById(Long Id);
-	
-	public CustomersAccountsDetailsDTO getAllAccountDetailsFromData();
 
-	
+	public CustomersAccountsDetailsDTO getAllAccountDetailsFromData();
 
 }

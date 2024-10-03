@@ -41,6 +41,12 @@ public class AccountServiceImpl implements AccountService {
 		accountDTO.setBankName(account.getBankName());
 		accountDTO.setMessage("Account Created Successfully" + " " + "" + "In  " + account.getBankName());
 
+		if (account.getCustomerId() != null && account.getCustomerId().
+				equals(accountDTO.getCustomerId())) {
+			throw new RuntimeException("Customer Id Alrady Exist...!");
+
+		}
+
 		repository.save(account);
 		return accountDTO;
 	}
@@ -160,7 +166,7 @@ public class AccountServiceImpl implements AccountService {
 
 		CustomersAccountsDetailsDTO customerDetails = new CustomersAccountsDetailsDTO();
 
-		String status = "De-Active";
+		String status = "Active";
 
 		List<Account> account = repository.findAll();
 

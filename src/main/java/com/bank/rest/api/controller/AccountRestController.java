@@ -75,14 +75,12 @@ public class AccountRestController {
 		return "Dear Customer Your Account Has Been Deleted Successfully....?";
 
 	}
-	
-	@GetMapping("/getAllCustomersDetails")
-	public CustomersAccountsDetailsDTO getAllCustomersDetailsFromDB()
-	{
-		
-		return service.getAllAccountDetailsFromData();
-		
-	}
 
+	@GetMapping("/getAllCustomersDetails")
+	public CustomersAccountsDetailsDTO getAllCustomersDetailsFromDB() {
+
+		return service.getAllAccountDetailsFromData();
+
+	}
 
 }
